@@ -122,6 +122,19 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# setting started from here for mysite chatapp
 
-ASGI_APPLICATION = "mysite.routing.application"
+# mysite/settings.py
+# Channels
+ASGI_APPLICATION = 'mysite.routing.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
+
 
