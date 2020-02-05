@@ -10,14 +10,18 @@
     <input id="chat-message-input" type="text" size="100"/><br/>
     <input id="chat-message-submit" type="button" value="Send"/>
 </body>
+
 <script>
     var roomName = "{{ room_name|escapejs }}";
 
-    console.log(window.location.host)
-    var chatSocket = new WebSocket(
-        'ws://' + window.location.host +
-        '/ws/chat/' + roomName + '/');
+    host=window.location.host
+    token="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MX0.-xXA0iKB4mVNvWLYFtt2xNiYkFpObF54J9lj2RwduAI"
+    socketUrl=`ws://${host}/ws/chat/${roomName}?${token}`
+    console.log(socketUrl)
 
+    var chatSocket = new WebSocket(socketUrl);
+
+    console.log(chatSocket,'-->')
     chatSocket.onmessage = function(e) {
         var data = JSON.parse(e.data);
         var message = data['message'];
