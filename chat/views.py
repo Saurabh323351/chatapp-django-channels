@@ -19,5 +19,5 @@ def room(request, room_name):
     # print(obj.username, '--->obj')
 
     return render(request, 'chat/room.html', {
-        'room_name': room_name
+        'room_name': room_name,
     })

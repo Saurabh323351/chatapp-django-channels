@@ -18,7 +18,7 @@ class TokenAuthMiddleware:
         # headers = dict(scope['headers'])
         print(scope['query_string'],'query_string,__call__')
         token=(scope['query_string'])
-        payload=jwt.decode(token,'secret',algorithms=['HS256'])
+        payload=jwt.decode(token,'its a secret',algorithms=['HS256'])
         print(payload)
         user_obj=User.objects.get(id=payload['id'])
         scope["user"] = user_obj

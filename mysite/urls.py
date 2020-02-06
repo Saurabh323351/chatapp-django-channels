@@ -17,8 +17,10 @@ Including another URLconf
 from django.conf.urls import include
 from django.urls import path
 from django.contrib import admin
-
+from users.views import UserLogin, Registeration
 urlpatterns = [
+    path('',UserLogin.as_view(),name="login"),
+    path('register/',Registeration.as_view(),name="register"),
     path('chat/', include('chat.urls')),
     path('admin/', admin.site.urls),
 ]

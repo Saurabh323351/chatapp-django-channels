@@ -15,7 +15,7 @@
     var roomName = "{{ room_name|escapejs }}";
 
     host=window.location.host
-    token="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MX0.-xXA0iKB4mVNvWLYFtt2xNiYkFpObF54J9lj2RwduAI"
+    token=localStorage.getItem("token");
     socketUrl=`ws://${host}/ws/chat/${roomName}?${token}`
     console.log(socketUrl)
 
