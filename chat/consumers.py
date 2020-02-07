@@ -66,7 +66,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         pprint.pprint(self.scope, indent=4)
         # print((self.scope['query_string']).decode('utf-8'))
-        print(self.scope['user'])
+        print(self.scope['user'],'---->connect')
 
         # host_=self.scope['headers'][0]
         # print(host_[1])
@@ -106,7 +106,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def chat_message(self, event):
         message = event['message']
         print(self.scope['user'], 'chat_message user')
+
         # Send message to WebSocket
         await self.send(text_data=json.dumps({
             'message': message
         }))
+

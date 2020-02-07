@@ -30,9 +30,6 @@
 
   </div>
 
-
-
-
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -45,8 +42,6 @@
 
   $(document).ready(function(){
 
-
-
       $("#submit").click(function(){
 
         var username=jQuery("#username").val()
@@ -56,6 +51,7 @@
         console.log(password)
         $.post("http://127.0.0.1:8000/",
         {
+
           username:username,
           password:password
         },
@@ -66,7 +62,8 @@
                 console.log("Data:", d )
 
           localStorage.setItem("token",d.data.token);
-          window.location.pathname = '/chat/';
+
+           window.location.pathname = '/chat/'
 
         });
       });

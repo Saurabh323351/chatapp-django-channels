@@ -9,7 +9,7 @@ class BookMiddleware(MiddlewareMixin):
     def process_view(self, request, view_func, view_args, view_kwargs):
 
         # request.META.get('HTTP_AUTHORIZATION')
-        # print("executed------>")
+        print("executed------>")
 
         # token_scheme = request.META.get('HTTP_AUTHORIZATION')
         token=request.META.get('HTTP_AUTHORIZATION')
@@ -20,7 +20,7 @@ class BookMiddleware(MiddlewareMixin):
 
             payload=jwt.decode(token,key="its a secret")
             print(payload,'---------->payload')
-            user_obj=User.objects.get(username=payload['username'])
+            user_obj=User.objects.get(id=payload['id'])
 
             request.user=user_obj
             print(request.user,'---------->middleware')
