@@ -132,7 +132,7 @@ class UserLogin(GenericAPIView):
 
             username=request_data['username']
             password=request_data['password']
-
+            #
             # user_obj = User(username=username, password=password)
             # user_obj.set_password(password)
             # # user_obj.is_active = False
@@ -156,3 +156,35 @@ class UserLogin(GenericAPIView):
             response=json.dumps(response)
 
         return HttpResponse(response)
+
+
+from django.http import StreamingHttpResponse
+
+
+def stream(request):
+
+    # in this case i am trying to stream whole video at once
+    # in this whole video is loaded to memory at once then it going for serving
+    # due to this ,on server has lots of loads
+    with open('./video/Get-Python-Installed.mp4', 'rb') as video_file:
+        response = HttpResponse(video_file.read(), content_type='video/mp4')
+        response['Content-Disposition'] = 'inline; filename=%s' % 'video.mp4'
+        return response
+    video_file.close()
+
+
+def make_stream_response(file_path="./video/Get-Python-Installed.mp4", content_type='video/mp4', file_size=24036666, attachment=None):
+
+    # Now this method ,i am trying to serve chunk by chunk of video data
+    # so chuck by chunk video data will load into memory then that chuck will be serve
+    response = StreamingHttpResponse(open("./video/Get-Python-Installed.mp4", 'rb'))
+
+    response['Content-Type'] = content_type
+    response['Content-Length'] = file_size
+    if attachment:
+        header = 'attachment; filename="%s"' % attachment
+        response['Content-Disposition'] = header
+
+    return response
+
+

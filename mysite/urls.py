@@ -17,10 +17,15 @@ Including another URLconf
 from django.conf.urls import include
 from django.urls import path
 from django.contrib import admin
-from users.views import UserLogin, Registeration
+from users.views import UserLogin, Registeration,stream,make_stream_response
 urlpatterns = [
     path('',UserLogin.as_view(),name="login"),
     path('register/',Registeration.as_view(),name="register"),
     path('chat/', include('chat.urls')),
     path('admin/', admin.site.urls),
+
+    # just trying to implement video streaming
+    path('stream/',stream,name="stream"),
+    path('stream_chunks/',make_stream_response,name="make_stream_response"),
+
 ]

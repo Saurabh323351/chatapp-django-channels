@@ -57,10 +57,14 @@
 
 from channels.generic.websocket import AsyncWebsocketConsumer
 import json,pprint
+from .models import Message
 
 class ChatConsumer(AsyncWebsocketConsumer):
 
+
     async def connect(self):
+
+
         self.room_name = self.scope['url_route']['kwargs']['room_name']
         self.room_group_name = 'chat_%s' % self.room_name
 
@@ -89,11 +93,23 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     # Receive message from WebSocket
     async def receive(self, text_data):
+
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
         print(self.scope['user'],'receive user')
 
         # Send message to room group
+        author_obj = self.scope['user']
+
+        print("*" * 40)
+        print(author_obj)
+        print("*" * 40)
+        from django.contrib.auth.models import User
+
+        user_obj = User(id=author_obj.id)
+
+        message_obj = Message.objects.create(content=message, author=user_obj)
+
         await self.channel_layer.group_send(
             self.room_group_name,
             {
@@ -102,10 +118,15 @@ class ChatConsumer(AsyncWebsocketConsumer):
             }
         )
 
+
     # Receive message from room group
     async def chat_message(self, event):
+
         message = event['message']
         print(self.scope['user'], 'chat_message user')
+
+
+
 
         # Send message to WebSocket
         await self.send(text_data=json.dumps({
