@@ -19,7 +19,7 @@ class TokenAuthMiddleware:
         print(scope['query_string'],'query_string,__call__')
         token=(scope['query_string'])
         payload=jwt.decode(token,'its a secret',algorithms=['HS256'])
-        print(payload)
+        print(payload,'----->token_auth')
         user_obj=User.objects.get(id=payload['id'])
         scope["user"] = user_obj
         close_old_connections()

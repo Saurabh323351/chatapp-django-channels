@@ -25,7 +25,14 @@
             var roomName = document.querySelector('#room-name-input').value;
 
 
-            window.location.pathname = '/chat/' + roomName + '/';
+            hostname=window.location.hostname
+            port=window.location.port
+            scheme=window.location.protocol
+            console.log(window)
+            token=localStorage.getItem("token");
+            url=`${scheme}//${hostname}:${port}/chat/${roomName}/?token=${token}`
+                console.log(url)
+            window.location.assign(url)
             console.log(window.location,'----->')
 
         };

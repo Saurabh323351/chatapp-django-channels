@@ -96,7 +96,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
-        print(self.scope['user'],'receive user')
+        print(self.scope['user'],'receive user','----->')
 
         # Send message to room group
         author_obj = self.scope['user']
@@ -123,13 +123,12 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def chat_message(self, event):
 
         message = event['message']
-        print(self.scope['user'], 'chat_message user')
-
-
-
+        print(self.scope['user'], 'chat_message user-->')
 
         # Send message to WebSocket
         await self.send(text_data=json.dumps({
             'message': message
         }))
+
+
 

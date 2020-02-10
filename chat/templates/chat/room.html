@@ -14,6 +14,7 @@
 <script>
     var roomName = "{{ room_name|escapejs }}";
 
+
     host=window.location.host
     token=localStorage.getItem("token");
     socketUrl=`ws://${host}/ws/chat/${roomName}?${token}`
@@ -27,6 +28,7 @@
         var data = JSON.parse(e.data);
         var message = data['message'];
         document.querySelector('#chat-log').value += (message + '\n');
+
     };
 
     chatSocket.onclose = function(e) {
@@ -49,5 +51,15 @@
 
         messageInputDom.value = '';
     };
+
+     function previousMessages(){
+
+         {% for m in user_messages %}
+                 document.querySelector('#chat-log').value += "{{m.author}} =>"+"{{m.content}}" +'\n' ;
+         {% endfor %}
+    }
+
+    previousMessages()
+
 </script>
 </html>
