@@ -5,7 +5,7 @@ billiard==3.6.1.0
 celery==4.4.0 # for celery
 coverage==5.0
 decorator==4.4.1
-Django==2.2 # for celery
+Django==2.2.27 # for celery
 django-celery-beat==1.5.0 # for celery
 django-celery-results==1.1.2 # for celery
 django-timezone-field==4.0
